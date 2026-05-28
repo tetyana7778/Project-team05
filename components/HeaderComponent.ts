@@ -19,9 +19,11 @@ export class HeaderComponent extends BaseComponent {
 
   //  конструктор тепер приймає і page, і root
   constructor(page: Page, root: Locator) {
-    // Передаємо ТУТ обидва параметри батьківському класу.
+  super(page, root);  // ← ось цей рядок був відсутній
 
-    this.logo = page.locator('.logo-img');
+  this.logo = page.locator('.logo-img');
+  
+    
     
     // Тепер замість page.getByLabel('Welcome to header') ми пишемо коротко: this.root!
     this.ecoNewsLink = this.root.getByRole('link', { name: /eco news|еко новини/i });

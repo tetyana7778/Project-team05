@@ -17,14 +17,14 @@ export class CreateNewsPage extends BaseComponent {
   readonly publishButton: Locator;
   readonly applyButton: Locator;
   readonly logoutButton: Locator;
-
+  readonly errorMessage: Locator;
+  readonly contentErrorMessage: Locator;
+  
   constructor(page: Page, root: Locator) {
     super(page, root);
 
-    // 2. Ініціалізація точних локаторів
-    // Поле Назва
-    this.titleInput = this.root.getByPlaceholder('напр. Кава з собою зі знижкою 20%');
-    
+        //this.titleInput = this.root.getByPlaceholder('напр. Кава з собою зі знижкою 20%');
+    this.titleInput = this.root.locator('[formcontrolname="title"]');
     // Теги 
     this.newsTag = this.root.locator('a').filter({ hasText: /^новини$|^news$/i });
     this.eventsTag = this.root.locator('a').filter({ hasText: /^події$|^events$/i });
@@ -45,4 +45,7 @@ export class CreateNewsPage extends BaseComponent {
     this.publishButton = this.root.getByRole('button', { name: /опублікувати|publish/i });
     this.applyButton = this.root.getByRole('button', { name: /застосувати|apply/i });
     this.logoutButton = this.root.getByRole('button', { name: /вийти|sign out/i });
+    this.errorMessage = page.locator('app-drag-and-drop p.warning-color');
+    this.contentErrorMessage = this.root.locator('p.field-info.warning');
   }
+}
