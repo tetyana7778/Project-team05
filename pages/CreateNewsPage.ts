@@ -19,7 +19,7 @@ export class CreateNewsPage extends BaseComponent {
   readonly logoutButton: Locator;
   readonly errorMessage: Locator;
   readonly contentErrorMessage: Locator;
-  
+  readonly sourceErrorMessage: Locator;
   constructor(page: Page, root: Locator) {
     super(page, root);
 
@@ -31,8 +31,8 @@ export class CreateNewsPage extends BaseComponent {
     this.initiativesTag = this.root.locator('a').filter({ hasText: /^ініціативи$|^initiatives$/i });
     
     // Посилання на зовнішнє джерело (необов'язкове)
-    this.sourceInput = this.root.getByPlaceholder('Посилання на зовнішнє джерело');
-    
+    //this.sourceInput = this.root.getByPlaceholder('Посилання на зовнішнє джерело');
+    this.sourceInput = this.root.locator('[formcontrolname="source"]');
     // Поле для перетягування зображення (необов'язкове)
     this.imageDropZone = this.root.locator('.text-wrapper');
     
@@ -47,5 +47,6 @@ export class CreateNewsPage extends BaseComponent {
     this.logoutButton = this.root.getByRole('button', { name: /вийти|sign out/i });
     this.errorMessage = page.locator('app-drag-and-drop p.warning-color');
     this.contentErrorMessage = this.root.locator('p.field-info.warning');
+    this.sourceErrorMessage = this.root.locator('span.field-info.warning');
   }
 }
