@@ -18,7 +18,7 @@ jobs:
     - name: Install Playwright Browsers and Dependencies
       run: npx playwright install chromium --with-deps
     - name: Run Playwright tests
-      run: npx playwright test --workers=1
+      run: npx playwright test --project=chromium --workers=1
       env:
         BASE_URL: https://www.greencity.cx.ua
         HEADLESS: true
