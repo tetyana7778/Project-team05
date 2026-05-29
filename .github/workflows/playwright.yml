@@ -16,9 +16,14 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers and Dependencies
-      run: npx playwright install --with-deps
+      run: npx playwright install chromium --with-deps
     - name: Run Playwright tests
       run: npx playwright test --workers=1
+      env:
+        BASE_URL: https://www.greencity.cx.ua
+        HEADLESS: true
+        RETRIES: 0
+        TIMEOUT: 30000
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
