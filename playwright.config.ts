@@ -9,7 +9,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: env.BASE_URL,
+        baseURL: env.BASE_URL,
     headless: env.HEADLESS,
     actionTimeout: env.TIMEOUT,
     trace: 'on-first-retry',
@@ -17,7 +17,11 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        ...devices['Desktop Chrome'],
+        channel: 'chrome', // <--- Додайте цей рядок сюди
+      },
     },
+   
   ],
 });
