@@ -8,9 +8,9 @@ test.describe('Валідація поля завантаження зображ
   let createNewsPage: CreateNewsPage;
   let loginPage: LoginPage;
 
-  const validPngPath = 'D:/OT/CourseAutomation/Project/Project-team05/fixtures/valid-image.png';
-  const invalidGifPath = 'D:/OT/CourseAutomation/Project/Project-team05/fixtures/invalid-format.gif';
-  const tooLargeJpgPath = 'D:/OT/CourseAutomation/Project/Project-team05/fixtures/too-large.jpg';
+  const validPngPath = 'fixtures/valid-image.png';
+  const invalidGifPath = 'fixtures/invalid-format.gif';
+  const tooLargeJpgPath = 'fixtures/too-large.jpg';
 
   test.beforeEach(async ({ page }) => {
     header = new HeaderComponent(page, page.locator('body'));
