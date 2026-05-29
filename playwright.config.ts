@@ -7,7 +7,11 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : env.RETRIES,
   workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+  reporter: [
+  ['html'],
+  ['allure-playwright']
+],
+
   use: {
         baseURL: env.BASE_URL,
     headless: env.HEADLESS,
@@ -21,6 +25,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         channel: 'chrome', // <--- Додайте цей рядок сюди
       },
+      
     },
    
   ],
