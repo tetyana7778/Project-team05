@@ -1,99 +1,157 @@
-# Project-team05
+# GreenCity Automation Tests
 
-This repository serves as the **foundational base** for a web application test automation project using Playwright and TypeScript. It establishes the project structure, configuration, and architecture conventions that all further automation work will be built upon — following the **Page Object Model** and **Component-based** patterns.
+Автоматизовані тести для веб-додатка GreenCity з використанням Playwright, TypeScript та Allure Report.
 
----
+## 📋 Вимоги
 
-## Tech Stack
+- **Node.js** >= 18.0.0
+- **npm** >= 9.0.0
 
-- [Playwright](https://playwright.dev/) — cross-browser end-to-end testing
-- [TypeScript](https://www.typescriptlang.org/) — type-safe test development
-- [dotenv](https://github.com/motdotla/dotenv) — environment variable management
+## 🚀 Встановлення та Запуск
 
----
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm 9+
-
-### Installation
+### 1. Встановлення залежностей
 
 ```bash
 npm install
-npx playwright install
 ```
 
-### Environment Configuration
+### 2. Запуск тестів
 
-Copy the example file and fill in your values:
+#### Запустити всі тести
+```bash
+npm test
+```
+
+#### Запустити тести в режимі браузера (headed)
+```bash
+npm run test:headed
+```
+
+#### Запустити тести в режимі налагодження
+```bash
+npm run test:debug
+```
+
+#### Запустити тільки TC-07
+```bash
+npm run test:tc07
+```
+
+### 3. Генерування Allure звіту
 
 ```bash
-cp .env.example .env
+npm run report
 ```
 
-| Variable   | Description                        | Default                  |
-|------------|------------------------------------|--------------------------|
-| `BASE_URL` | URL of the application under test  | `https://www.greencity.cx.ua/#/greenCity`  |
-| `HEADLESS` | Run browsers in headless mode      | `true`                   |
-| `RETRIES`  | Number of test retry attempts      | `0`                      |
-| `TIMEOUT`  | Action timeout in milliseconds     | `30000`                  |
+Це автоматично:
+- Генерує звіт з результатів тестування
+- Очищує попередні результати
+- Відкриває звіт у браузері
 
-> **Note:** `.env` is listed in `.gitignore` and should never be committed to the repository. Use `.env.example` as the source of truth for required variables.
+## 📁 Структура Проєкту
 
----
+```
+src/
+├── pages/              # Page Object Models
+│   ├── BasePage.ts     # Базовий клас для всіх сторінок
+│   ├── CreateNewsPage.ts
+│   └── NewsPage.ts
+├── components/         # Переможні компоненти
+│   ├── ConfirmationModal.ts
+│   └── Header.ts
+├── tests/              # Тест-файли
+│   └── tc-07.spec.ts
+└── fixtures/           # Фікстури для тестів
+playwright.config.ts   # Конфігурація Playwright
+tsconfig.json          # Конфігурація TypeScript
+```
 
-## Running Tests
+## 🏗️ Архітектура
+
+### Page Object Model (POM)
+Кожна сторінка веб-додатка представлена окремим класом, який містить:
+- Локатори для елементів сторінки
+- Методи для взаємодії з елементами
+- Логування через Allure steps
+
+### Компонентний підхід
+Переповторювані елементи (Header, Modal тощо) винесені в окремі компоненти та перевикористовуються в сторінках.
+
+### Allure Report
+- Кожна ключова дія логується як крок (step)
+- При падінні тесту автоматично збирається скриншот та trace
+- Генеруються детальні звіти з кроками, скриншотами та інформацією про помилки
+
+## 🧪 Тест-кейси
+
+### TC-07: Перевірка кнопки "Cancel" з модальним вікном підтвердження
+
+**Два сценарії:**
+
+1. **Успішне закриття форми**
+   - Натиснути "Cancel"
+   - Перевірити, що з'являється модальне вікно з повідомленням
+   - Натиснути "Yes, cancel"
+   - Перевірити закриття форми та перенаправлення на сторінку новин
+
+2. **Продовження редагування**
+   - Натиснути "Cancel"
+   - Перевірити модальне вікно
+   - Натиснути "Continue editing"
+   - Перевірити, що форма залишається відкритою з збереженими даними
+
+## 📊 Результати тестування
+
+После запуска тестов:
+- HTML звіт: `test-results/index.html`
+- JSON звіт: `test-results/results.json`
+- Allure звіт: `allure-report/index.html`
+- Скриншоти помилок: `test-results/`
+- Traceиs: `test-results/`
+
+## ⚙️ Конфігурація
+
+### playwright.config.ts
+```typescript
+- baseURL: https://www.greencity.cx.ua/#/greenCity
+- trace: 'retain-on-failure' - Збирає trace при падінні тесту
+- screenshot: 'only-on-failure' - Скриншот тільки при помилці
+```
+
+## 🔧 Розширення
+
+### Додавання нового тесту
+
+1. Створити файл `src/tests/tc-XX.spec.ts`
+2. Використовувати існуючі Page Objects або створити нові в `src/pages/`
+3. Додати logування через `allure.step()`
+4. Запустити тест через `npm test`
+
+## 🐛 Налагодження
 
 ```bash
-# Run all tests
-npx playwright test
-
-# Run tests in headed mode (visible browser)
-npx playwright test --headed
-
-# Run a specific test file
-npx playwright test tests/example.spec.ts
-
-# Run tests in a specific browser
-npx playwright test --project=chromium
-
-# Open the HTML report after a test run
-npx playwright show-report
+npm run test:debug
 ```
 
----
+Це запустить Playwright Inspector, де можна:
+- Пройти тест крок за кроком
+- Перевірити локатори
+- Модифікувати тест в реальному часі
 
-## Project Structure
+## 📝 Примітки
 
-```
-project-team05/
-├── tests/                  # Test files (*.spec.ts)
-├── pages/                  # Page Object classes
-│   └── base.page.ts        # Abstract base class for all pages
-├── components/             # Reusable UI component classes
-│   └── base.component.ts   # Abstract base class for all components
-├── fixtures/               # Custom Playwright fixtures
-├── utils/                  # Utility helpers
-│   └── env.ts              # Environment variable loader
-├── .env                    # Local environment config (not committed)
-├── .env.example            # Environment variable template
-├── playwright.config.ts    # Playwright configuration
-├── package.json
-└── README.md
-```
+- Всі тести незалежні один від одного
+- Тести очищуються в `afterEach`
+- Локатори оптимізовані для вибору елементів за текстом (найстійкіші)
+- Всі методи сторінок логуються в Allure
 
----
+## 🔗 Посилання
 
-## Architecture Overview
+- [Playwright Документація](https://playwright.dev)
+- [TypeScript](https://www.typescriptlang.org)
+- [Allure Report](https://docs.qameta.io/allure)
+- [GreenCity Platform](https://www.greencity.cx.ua)
 
-This project follows the **Page Object Model (POM)** pattern combined with a **Component-based** approach:
+## 👨‍💻 Автор
 
-- **Pages** (`pages/`) — represent full application pages. Each page class extends `BasePage` and exposes actions and assertions relevant to that page.
-- **Components** (`components/`) — represent reusable UI elements (e.g. header, modal, form). Each component class extends `BaseComponent`.
-- **Fixtures** (`fixtures/`) — custom Playwright fixtures for shared setup and teardown logic across tests.
-- **Utils** (`utils/`) — shared helper functions, including environment variable access via `env.ts`.
-
----
+QA Automation Engineer
