@@ -97,3 +97,48 @@ This project follows the **Page Object Model (POM)** pattern combined with a **C
 - **Utils** (`utils/`) — shared helper functions, including environment variable access via `env.ts`.
 
 ---
+---
+
+## Test Coverage
+
+| TC | Тестувальник | Опис |
+|----|---|---|
+| TC-01 | Tester 1 | Форма "Create News" містить всі поля у правильному порядку |
+| TC-02 | Tester 1 | Валідація поля "Title" (обов'язкове, макс. 170 символів), Publish заблокований |
+| TC-03 | Tester 1 | Вибір від 1 до 3 тегів, 4-й тег заблокований |
+| TC-04 | Tester 2 | Валідація поля завантаження зображення (PNG/JPG, макс. 10MB) |
+| TC-05 | Tester 3 | Валідація поля "Main Text" (мін. 20, макс. 63206 символів) |
+| TC-06 | Tester 3 | Валідація поля "Source" (опціональне, валідний URL) |
+
+---
+
+## Generating Allure Report
+
+```bash
+# Запустити тести
+npx playwright test
+
+# Згенерувати звіт
+npx allure generate allure-results --clean -o allure-report
+
+# Відкрити у браузері
+npx allure open allure-report
+```
+
+> Встановити Allure CLI: `npm install -g allure-commandline`
+
+---
+
+## Authentication Setup
+
+Тести TC-01–TC-06 використовують збережений стан сесії (`auth.json`).
+
+Щоб отримати `auth.json`, запустіть:
+
+```bash
+npx playwright test tests/auth.setup.spec.ts --headed
+```
+
+У відкритому браузері вручну залогінтесь на сайті, потім закрийте браузер або натисніть кнопку Resume в Playwright Inspector. Файл `auth.json` буде збережено автоматично.
+
+> `auth.json` додано в `.gitignore` і не потрапляє до репозиторію.
