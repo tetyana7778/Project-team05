@@ -109,7 +109,10 @@ This project follows the **Page Object Model (POM)** pattern combined with a **C
 | TC-04 | Tester 2 | Валідація поля завантаження зображення (PNG/JPG, макс. 10MB) |
 | TC-05 | Tester 2 | Валідація поля "Main Text" (мін. 20, макс. 63206 символів) |
 | TC-06 | Tester 2 | Валідація поля "Source" (опціональне, валідний URL) |
-| TC-07 | QA Engineer | Перевірка кнопки "Cancel" з модальним вікном підтвердження |
+| TC-07 | Tester 3 | Перевірка кнопки "Cancel" з модальним вікном підтвердження |
+| TC-08 | Tester 3 | Тестування функції "Preview" новин |
+| TC-09 | Tester 3 | Тестування видимості кнопки "Edit news" для автора |
+| TC-10 | Tester 3 | Тестування редагування та збереження новин |
 
 ---
 
